@@ -11,7 +11,7 @@ let frame = defaultCreateElement("div", "frame", container)
 let txt = defaultCreateElement("textarea", "txt", frame)
 txt.readOnly = true
 
-// store rows in arr
+// store rows in array
 let rows = []
 for (let i = 0; i < 3; i++) {
     let div = defaultCreateElement("div", "div", container)
@@ -24,6 +24,7 @@ let btnTxt = [
     { text: "+", accessKey: "+" }, { text: "-", accessKey: "-" }, { text: "*", accessKey: "*" }, { text: "/", accessKey: "/" },
     { text: "=", accessKey: "=" }, { text: "", accessKey: "" }, { text: ".", accessKey: "." }, { text: "<=", accessKey: "Backspace" }
 ]
+
 let txtMemory = []
 let question = ""
 
@@ -48,14 +49,14 @@ btnTxt.forEach((btnData, i) => {
 })
 
 function handleClick(btn) {
-    // changes background colour when button clicked
+    // changes background color when button clicked
     btn.classList.add("clicked")
     setTimeout(() => {
         btn.classList.remove("clicked")
     }, 200)
 
     if (btn.innerText === "=") {
-        let expression = txtMemory.join("")
+        let expression = question
         // use try-catch to handle invalid expressions
         try {
             // evaluate the expression using the eval function
@@ -63,26 +64,26 @@ function handleClick(btn) {
             // check if the result is Infinity (division by zero)
             if (result === Infinity) {
                 txt.innerText = "Thou cannot do such a thing!"
-                txtMemory = []
                 question = ""
+                txtMemory = []
             } else {
                 // round the result to one decimal place
                 result = parseFloat(result.toFixed(1))
                 txt.innerText = result
-                txtMemory = [result.toString()] // update memory with the result
                 question = result.toString()
+                txtMemory = [question] // update memory with the result
             }
         } catch (error) {
             // display "Error" if an error occurs during evaluation
             txt.innerText = "Error"
-            txtMemory = []
             question = ""
+            txtMemory = []
         }
     } else if (btn.innerText === "") {
         // gives the clear button its function (of clearing the screen text)
         txt.innerText = ""
-        txtMemory = []
         question = ""
+        txtMemory = []
     } else if (btn.innerText === "<=") {
         if (question.length > 0) {
             question = question.slice(0, -1)
