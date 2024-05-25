@@ -90,6 +90,13 @@ function handleClick(btn) {
             txtMemory.pop()
             txt.innerText = question
         }
+    } else if (btn.innerText === ".") {
+        let questionSides = question.split(/[\+\-\*\/]/).pop()
+        if (!questionSides.includes(".")) {
+            question += btn.innerText
+            txt.innerText = question
+            txtMemory.push(btn.innerText)
+        }
     } else {
         question += btn.innerText
         txt.innerText = question
